@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sessions</title>
+  <!-- Bootstrap CDN for styling (optional, replace if desired) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Main app logic -->
+   <div class="card p-4 mb-4">
+  <h4>Add Mentor Session</h4>
+  <form id="session-form" class="mb-3">
+    <div class="row g-2">
+      <div class="col">
+        <input type="text" id="mentor-name" class="form-control" placeholder="Mentor Name" required>
+      </div>
+      <div class="col">
+        <input type="datetime-local" id="session-datetime" class="form-control" required>
+      </div>
+      <div class="col">
+        <select id="session-type" class="form-select">
+          <option value="Live">Live</option>
+          <option value="Evaluation">Evaluation</option>
+          <option value="Recording Review">Recording Review</option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="number" id="duration" class="form-control" placeholder="Duration (mins)" required>
+      </div>
+      <div class="col">
+        <input type="number" id="rate" class="form-control" placeholder="Rate per Hour (₹)" required>
+      </div>
+      <!-- Extra input if assigning mentor-specific rate -->
+        <div class="col">
+        <input type="number" id="mentor-rate-override" class="form-control" placeholder="Override Rate/hr (₹)">
+        </div>
+
+      <div class="col">
+        <button type="submit" class="btn btn-success">Add Session</button>
+      </div>
+    </div>
+  </form>
+  <form id="csv-upload-form" class="mb-3">
+    <label for="csv-input" class="form-label">Upload CSV</label>
+    <input type="file" id="csv-input" accept=".csv" class="form-control">
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+  </form>
+  <div id="session-message" class="mb-2 text-success"></div>
+</div>
+
+<div class="mb-3">
+  <h5>Filter By Date Range</h5>
+  <select id="date-filter" class="form-select w-auto d-inline-block">
+    <option value="7">Last 7 days</option>
+    <option value="15">Last 15 days</option>
+    <option value="30">Last 30 days</option>
+    <option value="custom">Custom</option>
+  </select>
+  <input type="date" id="custom-from" class="form-control d-inline-block w-auto" style="display:none;">
+  <input type="date" id="custom-to" class="form-control d-inline-block w-auto" style="display:none;">
+  <button id="filter-btn" class="btn btn-secondary btn-sm ms-2">Apply</button>
+</div>
+
+<table class="table table-bordered" id="session-table">
+  <thead>
+    <tr>
+      <th>Mentor</th>
+      <th>Date/Time</th>
+      <th>Type</th>
+      <th>Duration (mins)</th>
+      <th>Rate/hr (₹)</th>
+      <th>Payout (₹)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<div>
+  <strong>Total Payout (selected): ₹<span id="total-payout">0</span></strong>
+</div>
+
+  <script type="module" src="./session.js"></script>
+</body>
+</html>
